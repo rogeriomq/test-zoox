@@ -2,8 +2,8 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "test": "jest",
-    "test:watch": "jest --watchAll"
+    "test": "jest --detectOpenHandles",
+    "test:watch": "jest --detectOpenHandles --watchAll"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
