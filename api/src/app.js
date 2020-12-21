@@ -12,8 +12,12 @@ const routes = require('./routes')
 
 const app = express()
 
-// app.use(helmet())
-app.use(cors())
+app.use(helmet())
+app.use(
+  cors({
+    allowedHeaders: ['x-api-key'],
+  })
+)
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
