@@ -49,6 +49,7 @@ describe('State Routes: ', () => {
     test('should response with array of all states', async () => {
       const response = await request(app)
         .get('/states')
+        .set('X-Api-Key', process.env.API_KEY)
         .expect('Content-Type', 'application/json; charset=utf-8')
         .expect(StatusCodes.OK)
       expect(Array.isArray(response.body)).toBeTruthy()
@@ -58,6 +59,7 @@ describe('State Routes: ', () => {
     test('should response with array of states based on filter', async () => {
       const response = await request(app)
         .get(`/states?filter=Am`)
+        .set('X-Api-Key', process.env.API_KEY)
         .expect('Content-Type', 'application/json; charset=utf-8')
         .expect(StatusCodes.OK)
       expect(Array.isArray(response.body)).toBeTruthy()
@@ -67,6 +69,7 @@ describe('State Routes: ', () => {
     test('should response with array of states ordered by abbreviation descendent', async () => {
       const response = await request(app)
         .get(`/states?abbreviation=desc`)
+        .set('X-Api-Key', process.env.API_KEY)
         .expect('Content-Type', 'application/json; charset=utf-8')
         .expect(StatusCodes.OK)
       expect(Array.isArray(response.body)).toBeTruthy()
@@ -82,6 +85,7 @@ describe('State Routes: ', () => {
     test('should response body with json of state', async () => {
       const response = await request(app)
         .post('/state')
+        .set('X-Api-Key', process.env.API_KEY)
         .send(newState)
         .expect('Content-Type', 'application/json; charset=utf-8')
         .expect(StatusCodes.CREATED)
@@ -103,6 +107,7 @@ describe('State Routes: ', () => {
     test('should error when missing required fields', async () => {
       const response = await request(app)
         .post('/state')
+        .set('X-Api-Key', process.env.API_KEY)
         .send({ abbreviation: 'SP' })
         .expect(StatusCodes.BAD_REQUEST)
 
@@ -124,6 +129,7 @@ describe('State Routes: ', () => {
     test('should response object state with name and abbreviation updated(uppercase). ', async () => {
       const response = await request(app)
         .put('/state')
+        .set('X-Api-Key', process.env.API_KEY)
         .send({
           id: stateOfTocantins._id,
           name: stateOfTocantins.name.toUpperCase(),
@@ -136,6 +142,7 @@ describe('State Routes: ', () => {
     test('should error when missing required fields. ', async () => {
       const response = await request(app)
         .put('/state')
+        .set('X-Api-Key', process.env.API_KEY)
         .send({
           name: stateOfTocantins.name.toUpperCase(),
         })
@@ -159,19 +166,22 @@ describe('State Routes: ', () => {
     test('should delete state of the store. ', async () => {
       await request(app)
         .delete(`/state/${stateOfTocantins._id}`)
+        .set('X-Api-Key', process.env.API_KEY)
         .expect('Content-Type', 'application/json; charset=utf-8')
         .expect(StatusCodes.OK)
     })
 
     test('should error 500 when invalid parameter id', async () => {
-      const response = await request(app)
+      await request(app)
         .delete(`/state/${fakeId}`)
+        .set('X-Api-Key', process.env.API_KEY)
         .expect(StatusCodes.INTERNAL_SERVER_ERROR)
     })
 
     test('should error 404 when state not found to delete', async () => {
-      const response = await request(app)
+      await request(app)
         .delete(`/state/${objectId}`)
+        .set('X-Api-Key', process.env.API_KEY)
         .expect(StatusCodes.NOT_FOUND)
     })
   })

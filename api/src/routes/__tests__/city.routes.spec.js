@@ -68,6 +68,7 @@ describe('State Routes: ', () => {
     test('should response with array of cities', async () => {
       const response = await request(app)
         .get('/cities')
+        .set('X-Api-Key', process.env.API_KEY)
         .expect('Content-Type', 'application/json; charset=utf-8')
         .expect(StatusCodes.OK)
       expect(Array.isArray(response.body)).toBeTruthy()
@@ -77,6 +78,7 @@ describe('State Routes: ', () => {
     test('should response with array of cities based on filter', async () => {
       const response = await request(app)
         .get(`/cities?filter=TO`)
+        .set('X-Api-Key', process.env.API_KEY)
         .expect('Content-Type', 'application/json; charset=utf-8')
         .expect(StatusCodes.OK)
       expect(Array.isArray(response.body)).toBeTruthy()
@@ -86,6 +88,7 @@ describe('State Routes: ', () => {
     test('should response with array of cities ordered by name ascendent', async () => {
       const response = await request(app)
         .get(`/cities?name=asc`)
+        .set('X-Api-Key', process.env.API_KEY)
         .expect('Content-Type', 'application/json; charset=utf-8')
         .expect(StatusCodes.OK)
       expect(Array.isArray(response.body)).toBeTruthy()
@@ -144,6 +147,7 @@ describe('State Routes: ', () => {
     test('should response with array of cities of state param', async () => {
       const response = await request(app)
         .get(`/cities/${states[0].abbreviation}`)
+        .set('X-Api-Key', process.env.API_KEY)
         .expect('Content-Type', 'application/json; charset=utf-8')
         .expect(StatusCodes.OK)
       expect(Array.isArray(response.body)).toBeTruthy()
@@ -175,6 +179,7 @@ describe('State Routes: ', () => {
     test('should response body with json of city', async () => {
       const response = await request(app)
         .post('/city')
+        .set('X-Api-Key', process.env.API_KEY)
         .send(newCity)
         .expect('Content-Type', 'application/json; charset=utf-8')
         .expect(StatusCodes.CREATED)
@@ -190,6 +195,7 @@ describe('State Routes: ', () => {
     test('should error when missing required fields', async () => {
       const response = await request(app)
         .post('/city')
+        .set('X-Api-Key', process.env.API_KEY)
         .send({ name: 'Gurupi' })
         .expect(StatusCodes.BAD_REQUEST)
 
@@ -219,6 +225,7 @@ describe('State Routes: ', () => {
     test('should response with city name updated (backwards) ', async () => {
       const response = await request(app)
         .put('/city')
+        .set('X-Api-Key', process.env.API_KEY)
         .send({
           id: city._id,
           name: otherCityName,
@@ -232,6 +239,7 @@ describe('State Routes: ', () => {
     test('should error when missing required fields. ', async () => {
       const response = await request(app)
         .put('/city')
+        .set('X-Api-Key', process.env.API_KEY)
         .send({
           name: city.name,
         })
@@ -263,6 +271,7 @@ describe('State Routes: ', () => {
     test('should delete city of the store. ', async () => {
       await request(app)
         .delete(`/city/${city._id}`)
+        .set('X-Api-Key', process.env.API_KEY)
         .expect('Content-Type', 'application/json; charset=utf-8')
         .expect(StatusCodes.OK)
     })
@@ -270,12 +279,14 @@ describe('State Routes: ', () => {
     test('should error 500 when invalid parameter id', async () => {
       await request(app)
         .delete(`/state/${invalidId}`)
+        .set('X-Api-Key', process.env.API_KEY)
         .expect(StatusCodes.INTERNAL_SERVER_ERROR)
     })
 
     test('should error 404 when state not found to delete', async () => {
       await request(app)
         .delete(`/state/${objectId}`)
+        .set('X-Api-Key', process.env.API_KEY)
         .expect(StatusCodes.NOT_FOUND)
     })
   })
