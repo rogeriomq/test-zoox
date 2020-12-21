@@ -1,4 +1,7 @@
+const plugin = require('dayjs/plugin/timezone')
 const mongoose = require('../database')
+
+const timezonePlugin = require('./plugins/timezone')
 
 const { ObjectId } = mongoose.Schema
 const citySchema = new mongoose.Schema(
@@ -16,10 +19,7 @@ const citySchema = new mongoose.Schema(
   }
 )
 
-citySchema.pre('save', next => {
-  // implement verify if has exists city with stateId in collection
-  return next()
-})
+citySchema.plugin(timezonePlugin)
 
 const City = mongoose.model('City', citySchema)
 

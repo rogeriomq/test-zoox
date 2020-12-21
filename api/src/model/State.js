@@ -1,4 +1,5 @@
 const mongoose = require('../database')
+const timezonePlugin = require('./plugins/timezone')
 
 const stateSchema = new mongoose.Schema(
   {
@@ -9,6 +10,8 @@ const stateSchema = new mongoose.Schema(
     timestamps: true,
   }
 )
+
+stateSchema.plugin(timezonePlugin)
 
 const State = mongoose.model('State', stateSchema)
 
