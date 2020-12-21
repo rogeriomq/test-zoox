@@ -16,6 +16,8 @@ describe('State Routes: ', () => {
   })
 
   afterAll(async () => {
+    await CityModel.remove({})
+    await StateModel.remove({})
     await mongoose.disconnect()
   })
 
@@ -135,7 +137,6 @@ describe('State Routes: ', () => {
       const response = await request(app)
         .put('/state')
         .send({
-          id: stateOfTocantins._id,
           name: stateOfTocantins.name.toUpperCase(),
         })
         .expect(StatusCodes.INTERNAL_SERVER_ERROR)

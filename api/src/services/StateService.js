@@ -39,12 +39,11 @@ module.exports.create = async state => {
 }
 
 module.exports.update = async stateData => {
-  const data = pick(stateData, ['id', 'name', 'abbreviation'])
-  const state = await State.findById(data.id).exec()
+  const state = await State.findById(stateData.id).exec()
 
   if (state) {
-    Object.keys(data).map(key => {
-      state[key] = data[key]
+    Object.keys(stateData).map(key => {
+      state[key] = stateData[key]
     })
     return await state.save()
   }

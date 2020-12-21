@@ -45,6 +45,9 @@ module.exports.create = async (_, response) => {
 module.exports.update = async (request, response) => {
   const dataCity = pick(request.body, ['id', 'name', 'stateId'])
   try {
+    if (!dataCity.id) {
+      throw new Error('Missing id field.')
+    }
     const result = await CityService.update(dataCity)
     response.json(result)
   } catch (error) {

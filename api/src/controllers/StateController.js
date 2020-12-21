@@ -31,6 +31,9 @@ module.exports.create = async (_, response) => {
 module.exports.update = async (request, response) => {
   const dataState = pick(request.body, ['id', 'name', 'abbreviation'])
   try {
+    if (!dataState.id) {
+      throw new Error('Missing id field.')
+    }
     const result = await StateService.update(dataState)
     response.json(result)
   } catch (error) {
