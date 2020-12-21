@@ -62,23 +62,6 @@ module.exports.getByAbbreviationState = async abbreviationState => {
       },
     },
   ])
-  // .lookup({
-  //   from: 'State',
-  //   localField: 'stateId',
-  //   foreignField: '_id',
-  //   as: 'statePopulate',
-  // })
-  // .unwind({
-  //   path: '$statePopulate',
-  // })
-  // .project({
-  //   _id: 1,
-  //   name: 1,
-  //   stateId: 1,
-  //   createdAt: 1,
-  //   updatedAt: 1,
-  //   state: '$statePopulate',
-  // })
 }
 
 module.exports.create = async city => {
@@ -87,14 +70,13 @@ module.exports.create = async city => {
 }
 
 module.exports.update = async cityData => {
-  const { id, name, stateId } = cityData
-  const city = await CityModel.findById(id).exec()
+  const data = pick(cityData, ['id', 'name', 'stateId'])
+  const city = await CityModel.findById(data.id).exec()
 
   if (city) {
-    city.name = name
-    city.stateId = stateId
-    city.updatedAt = new Date()
-
+    Object.keys(data).map(key => {
+      city[key] = data[key]
+    })
     return await city.save()
   }
 
