@@ -35,7 +35,6 @@ export default {
       try {
         loading.value = true
         cities.value = await apiClient.getCitiesByState(selected)
-        console.log('cities Size', cities.value.length)
       } catch (error) {
         cities.value = []
       } finally {

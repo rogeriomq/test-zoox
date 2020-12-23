@@ -1,6 +1,5 @@
 <template>
   <div class="w-full flex flex-col py-1">
-    <!-- Component Select City -->
     <div class="flex flex-col relative">
       <label for="input-filter" class="text-gray-500 text-sm"
         >Selecione a Cidade</label
