@@ -7,7 +7,7 @@ info:
     email: rogerio.mq@gmail.com
   version: 1.0.0
 servers:
-  - url: 'http://localhost:3000'
+  - url: 'http://localhost:3333'
     description: Development server
 tags:
   - name: ping
@@ -107,6 +107,27 @@ paths:
       tags:
         - city
       summary: Returns cities ordered by name
+      responses:
+        '200':
+          description: Array of cities
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/City'
+  '/cities/{abbreviationState}':
+    get:
+      tags:
+        - city
+      summary: Returns cities ordered by name by state
+      parameters:
+        - name: id
+          in: path
+          description: State abbreviation
+          required: true
+          schema:
+            type: string
       responses:
         '200':
           description: Array of cities
