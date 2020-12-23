@@ -7,7 +7,7 @@ Project API - Zoox selection process
 - NodeJS >= v12
 - MongoDB >= 3.4
 
-> In project root folder...
+## In project root folder...
 
 In your preferred terminal:
 
@@ -29,3 +29,10 @@ MongoDB
 
 - \*\*\* Docker(if use):
   `docker run --name mongo-server -d -p 27017:27017 -p 28017:28017 -e MONGO_INITDB_ROOT_USERNAME="admin" -e MONGO_INITDB_ROOT_PASSWORD="admin" -e MONGO_INITDB_DATABASE="zooxdb" mongo`
+
+# Used technologies
+
+- Express - Fast, unopinionated, minimalist web framework for Node.js;
+- Mongoose - elegant mongodb object modeling for node.js;
+- Jest - A simple structuture of test applications with a focus on simplicity;
+- Supertest - HTTP assertions to tests end to end for Express apps;
