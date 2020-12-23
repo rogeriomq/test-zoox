@@ -15,7 +15,7 @@ In your preferred terminal:
 
 ## Used technologies
 
-- VueJS 3.x
-- Vite - is an opinionated web dev build tool that serves your code via native ES Module imports during dev and bundles it with Rollup for production.
-- TailwindCSS - A utility-first CSS framework packed with "semantic class names".
-- Axios - Promise based HTTP client for the browser and node.js
+- VueJS 3.x;
+- Vite - is an opinionated web dev build tool that serves your code via native ES Module imports during dev and bundles it with Rollup for production;
+- TailwindCSS - A utility-first CSS framework packed with "semantic class names";
+- Axios - Promise based HTTP client for the browser and node.js.
