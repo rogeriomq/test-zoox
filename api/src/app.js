@@ -3,7 +3,6 @@ require('dotenv').config()
 
 const express = require('express')
 const helmet = require('helmet')
-const bodyParser = require('body-parser')
 const cors = require('cors')
 
 const apiKeyProtector = require('./middlewares/apiKeyProtector')
@@ -18,8 +17,8 @@ app.use(
     allowedHeaders: ['x-api-key'],
   })
 )
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
 
 app.use(apiKeyProtector, routes)
 app.get('/ping', (req, res) => res.json({ ping: 'pong' }))
