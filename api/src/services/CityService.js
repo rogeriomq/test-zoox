@@ -80,7 +80,7 @@ module.exports.update = async cityData => {
     return await city.save()
   }
 
-  return {}
+  throw new Error('City not found')
 }
 
 module.exports.delete = async id => await CityModel.findByIdAndDelete(id).exec()

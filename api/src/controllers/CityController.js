@@ -21,7 +21,6 @@ module.exports.getByAbbreviationState = async (request, response) => {
     const result = await CityService.getByAbbreviationState(abbreviationState)
     response.json(result || [])
   } catch (error) {
-    console.log(error)
     response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       errorCode: 'ERROR_GET_CITIES',
       message: error.message,

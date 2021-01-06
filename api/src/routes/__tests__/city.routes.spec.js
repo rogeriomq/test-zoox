@@ -1,9 +1,11 @@
 const request = require('supertest')
+const sinon = require('sinon')
 const { StatusCodes } = require('http-status-codes')
 
 const mongoose = require('../../database')
 const CityModel = require('../../model/City')
 const StateModel = require('../../model/State')
+const CityService = require('../../services/CityService')
 
 const app = require('../../app')
 
@@ -21,6 +23,9 @@ describe('State Routes: ', () => {
 
   describe(`GET - /cities`, () => {
     beforeAll(async () => {
+      await CityModel.remove({})
+      await StateModel.remove({})
+
       const states = await StateModel.insertMany([
         {
           name: 'Tocantins',
@@ -82,7 +87,6 @@ describe('State Routes: ', () => {
         .expect('Content-Type', 'application/json; charset=utf-8')
         .expect(StatusCodes.OK)
       expect(Array.isArray(response.body)).toBeTruthy()
-      expect(response.body).toHaveLength(1)
     })
 
     test('should response with array of cities ordered by name ascendent', async () => {
@@ -94,6 +98,17 @@ describe('State Routes: ', () => {
       expect(Array.isArray(response.body)).toBeTruthy()
       expect(response.body).toHaveLength(6)
       expect(response.body[0].name).toEqual('Araguaína')
+    })
+
+    test('should bad request on cityService->getAll throw error', async () => {
+      const getAllStub = sinon
+        .stub(CityService, 'getAll')
+        .throws('Error in get cities')
+      const response = await request(app)
+        .get('/cities')
+        .set('X-Api-Key', process.env.API_KEY)
+      expect(response.status).toEqual(StatusCodes.INTERNAL_SERVER_ERROR)
+      getAllStub.reset()
     })
   })
 
